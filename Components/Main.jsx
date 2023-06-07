@@ -1,935 +1,1791 @@
-import { Image, StyleSheet, Text, View, TouchableOpacity as TouchableOpcaity } from 'react-native';
-import {useEffect, useState} from 'react';
-import logo from '../assets/logo.png';
+import {StyleSheet, Text, View, TouchableOpacity as TouchableOpcaity } from 'react-native';
+import {useState} from 'react';
 
 
 const Main = () => {
 
-  const [num, setNum] = useState(0)
-  const [answer, setAnswer] = useState('');
+  const [num, setNum] = useState(15)
 
-  const facts = [
+  const sayings = [
     {
-        value: true,
-        text: 'Mobile computing is the ability to do computing operations while on the move.'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: true,
-        text: ' The first commercially available mobile phone, the Motorola DynaTAC 8000X, was released in 1983'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: false,
-        text: 'The first smartphone was released by Apple and was called the iPhone 2G'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: true,
-        text: 'Android is an open-source operating system for mobile devices developed by Google'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: true,
-        text: 'The acronym "iOS" stands for "iPhone Operating System" '
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: false,
-        text: 'Mobile computing refers only to smartphones and tablets, excluding other portable devices like smartwatches'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: false,
-        text: 'Mobile devices are incapable of using Wi-Fi for internet connectivity'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: false,
-        text: 'The concept of mobile computing originated in the early 2000s'
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: true,
-        text: 'Augmented reality (AR) and virtual reality (VR) technologies are commonly integrated into mobile applications'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: true,
-        text: 'The Python programming language was named after the British comedy group Monty Python'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: false,
-        text: 'The Internet was created in the 1990s'
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: true,
-        text: 'The concept of object-oriented programming (OOP) was first introduced in the language Smalltalk'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: false,
-        text: 'The first computer virus was developed in the 1980s and was called "Brain."'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: true,
-        text: 'The concept of the World Wide Web (WWW) was proposed by Tim Berners-Lee in 1989'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: true,
-        text: 'The first general-purpose electronic computer, ENIAC, was completed in 1945'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: true,
-        text: ' The programming language Java was initially called "Oak."'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: true,
-        text: 'The first mobile application was created in 1997.'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: true,
-        text: "The concept of mobile apps gained significant popularity with the launch of Apple's App Store in 2008."
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: true,
-        text: 'Mobile computing enables users to access information and services on the go through their portable devices.'
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: true,
-        text: 'Mobile operating systems like Android and iOS allow users to multitask and run multiple apps simultaneously.'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: true,
-        text: 'Mobile computing has transformed various industries, such as e-commerce, social media, and mobile gaming'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: false,
-        text: ' Mobile phones were first introduced to the market in the 1970s.'
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: false,
-        text: ' All mobile applications are developed using the Java programming language'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: false,
-        text: ' The acronym "iOS" stands for "Internet Operating System."'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: false,
-        text: ' 5G is the earliest generation of mobile network technology.'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: false,
-        text: 'Mobile computing does not involve wearable devices like smartwatches.'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: true,
-        text: 'Mobile devices use a variety of sensors, such as accelerometers and gyroscopes, to enable features like screen rotation and motion detection.'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: true,
-        text: 'Mobile payment systems, such as Apple Pay and Google Pay, have gained popularity for making secure transactions using smartphones.'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: true,
-        text: 'Mobile computing has enabled the rise of location-based services and navigation applications.'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: true,
-        text: ' Mobile cloud computing allows users to store and access their data and applications from remote servers via the internet.'
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: true,
-        text: 'Mobile computing has revolutionized communication by providing instant messaging, video calling, and social networking platforms on portable devices.'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: false,
-        text: 'Wi-Fi connectivity is not available on mobile devices.'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: false,
-        text: 'Mobile computing is limited to smartphones and excludes tablets.'
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: false,
-        text: 'Mobile applications cannot integrate augmented reality or virtual reality technologies.'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: false,
-        text: 'Mobile computing became popular in the 1990s with the introduction of PalmPilot devices.'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: false,
-        text: 'The concept of mobile computing originated solely from advancements in cellular technology.'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: true,
-        text: 'Mobile computing is the ability to do computing operations while on the move.'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: true,
-        text: ' The first commercially available mobile phone, the Motorola DynaTAC 8000X, was released in 1983'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: false,
-        text: 'The first smartphone was released by Apple and was called the iPhone 2G'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: true,
-        text: 'Android is an open-source operating system for mobile devices developed by Google'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: true,
-        text: 'The acronym "iOS" stands for "iPhone Operating System" '
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: false,
-        text: 'Mobile computing refers only to smartphones and tablets, excluding other portable devices like smartwatches'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: false,
-        text: 'Mobile devices are incapable of using Wi-Fi for internet connectivity'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: false,
-        text: 'The concept of mobile computing originated in the early 2000s'
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: true,
-        text: 'Augmented reality (AR) and virtual reality (VR) technologies are commonly integrated into mobile applications'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: true,
-        text: 'The Python programming language was named after the British comedy group Monty Python'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: false,
-        text: 'The Internet was created in the 1990s'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: true,
-        text: 'The concept of object-oriented programming (OOP) was first introduced in the language Smalltalk'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: false,
-        text: 'The first computer virus was developed in the 1980s and was called "Brain."'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: true,
-        text: 'The concept of the World Wide Web (WWW) was proposed by Tim Berners-Lee in 1989'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: true,
-        text: 'The first general-purpose electronic computer, ENIAC, was completed in 1945'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: true,
-        text: ' The programming language Java was initially called "Oak."'
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: true,
-        text: 'The first mobile application was created in 1997.'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: true,
-        text: "The concept of mobile apps gained significant popularity with the launch of Apple's App Store in 2008."
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: true,
-        text: 'Mobile computing enables users to access information and services on the go through their portable devices.'
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: true,
-        text: 'Mobile operating systems like Android and iOS allow users to multitask and run multiple apps simultaneously.'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: true,
-        text: 'Mobile computing has transformed various industries, such as e-commerce, social media, and mobile gaming'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: false,
-        text: ' Mobile phones were first introduced to the market in the 1970s.'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: false,
-        text: ' All mobile applications are developed using the Java programming language'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: false,
-        text: ' The acronym "iOS" stands for "Internet Operating System."'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: false,
-        text: ' 5G is the earliest generation of mobile network technology.'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: false,
-        text: 'Mobile computing does not involve wearable devices like smartwatches.'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: true,
-        text: 'Mobile devices use a variety of sensors, such as accelerometers and gyroscopes, to enable features like screen rotation and motion detection.'
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: true,
-        text: 'Mobile payment systems, such as Apple Pay and Google Pay, have gained popularity for making secure transactions using smartphones.'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: true,
-        text: 'Mobile computing has enabled the rise of location-based services and navigation applications.'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: true,
-        text: ' Mobile cloud computing allows users to store and access their data and applications from remote servers via the internet.'
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: true,
-        text: 'Mobile computing has revolutionized communication by providing instant messaging, video calling, and social networking platforms on portable devices.'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: false,
-        text: 'Wi-Fi connectivity is not available on mobile devices.'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: false,
-        text: 'Mobile computing is limited to smartphones and excludes tablets.'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: false,
-        text: 'Mobile applications cannot integrate augmented reality or virtual reality technologies.'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: false,
-        text: 'Mobile computing became popular in the 1990s with the introduction of PalmPilot devices.'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: false,
-        text: 'The concept of mobile computing originated solely from advancements in cellular technology.'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: true,
-        text: 'Mobile computing is the ability to do computing operations while on the move.'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: true,
-        text: ' The first commercially available mobile phone, the Motorola DynaTAC 8000X, was released in 1983'
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: false,
-        text: 'The first smartphone was released by Apple and was called the iPhone 2G'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: true,
-        text: 'Android is an open-source operating system for mobile devices developed by Google'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: true,
-        text: 'The acronym "iOS" stands for "iPhone Operating System" '
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: false,
-        text: 'Mobile computing refers only to smartphones and tablets, excluding other portable devices like smartwatches'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: false,
-        text: 'Mobile devices are incapable of using Wi-Fi for internet connectivity'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: false,
-        text: 'The concept of mobile computing originated in the early 2000s'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: true,
-        text: 'Augmented reality (AR) and virtual reality (VR) technologies are commonly integrated into mobile applications'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: true,
-        text: 'The Python programming language was named after the British comedy group Monty Python'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: false,
-        text: 'The Internet was created in the 1990s'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: true,
-        text: 'The concept of object-oriented programming (OOP) was first introduced in the language Smalltalk'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: false,
-        text: 'The first computer virus was developed in the 1980s and was called "Brain."'
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: true,
-        text: 'The concept of the World Wide Web (WWW) was proposed by Tim Berners-Lee in 1989'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: true,
-        text: 'The first general-purpose electronic computer, ENIAC, was completed in 1945'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: true,
-        text: ' The programming language Java was initially called "Oak."'
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: true,
-        text: 'The first mobile application was created in 1997.'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: true,
-        text: "The concept of mobile apps gained significant popularity with the launch of Apple's App Store in 2008."
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: true,
-        text: 'Mobile computing enables users to access information and services on the go through their portable devices.'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: true,
-        text: 'Mobile operating systems like Android and iOS allow users to multitask and run multiple apps simultaneously.'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: true,
-        text: 'Mobile computing has transformed various industries, such as e-commerce, social media, and mobile gaming'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: false,
-        text: ' Mobile phones were first introduced to the market in the 1970s.'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: false,
-        text: ' All mobile applications are developed using the Java programming language'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: false,
-        text: ' The acronym "iOS" stands for "Internet Operating System."'
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: false,
-        text: ' 5G is the earliest generation of mobile network technology.'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: false,
-        text: 'Mobile computing does not involve wearable devices like smartwatches.'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: true,
-        text: 'Mobile devices use a variety of sensors, such as accelerometers and gyroscopes, to enable features like screen rotation and motion detection.'
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: true,
-        text: 'Mobile payment systems, such as Apple Pay and Google Pay, have gained popularity for making secure transactions using smartphones.'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: true,
-        text: 'Mobile computing has enabled the rise of location-based services and navigation applications.'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: true,
-        text: ' Mobile cloud computing allows users to store and access their data and applications from remote servers via the internet.'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: true,
-        text: 'Mobile computing has revolutionized communication by providing instant messaging, video calling, and social networking platforms on portable devices.'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: false,
-        text: 'Wi-Fi connectivity is not available on mobile devices.'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: false,
-        text: 'Mobile computing is limited to smartphones and excludes tablets.'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: false,
-        text: 'Mobile applications cannot integrate augmented reality or virtual reality technologies.'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: false,
-        text: 'Mobile computing became popular in the 1990s with the introduction of PalmPilot devices.'
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: false,
-        text: 'The concept of mobile computing originated solely from advancements in cellular technology.'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: true,
-        text: 'Mobile computing is the ability to do computing operations while on the move.'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: true,
-        text: ' The first commercially available mobile phone, the Motorola DynaTAC 8000X, was released in 1983'
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: false,
-        text: 'The first smartphone was released by Apple and was called the iPhone 2G'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: true,
-        text: 'Android is an open-source operating system for mobile devices developed by Google'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: true,
-        text: 'The acronym "iOS" stands for "iPhone Operating System" '
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: false,
-        text: 'Mobile computing refers only to smartphones and tablets, excluding other portable devices like smartwatches'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: false,
-        text: 'Mobile devices are incapable of using Wi-Fi for internet connectivity'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: false,
-        text: 'The concept of mobile computing originated in the early 2000s'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: true,
-        text: 'Augmented reality (AR) and virtual reality (VR) technologies are commonly integrated into mobile applications'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: true,
-        text: 'The Python programming language was named after the British comedy group Monty Python'
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: false,
-        text: 'The Internet was created in the 1990s'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: true,
-        text: 'The concept of object-oriented programming (OOP) was first introduced in the language Smalltalk'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: false,
-        text: 'The first computer virus was developed in the 1980s and was called "Brain."'
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: true,
-        text: 'The concept of the World Wide Web (WWW) was proposed by Tim Berners-Lee in 1989'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: true,
-        text: 'The first general-purpose electronic computer, ENIAC, was completed in 1945'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: true,
-        text: ' The programming language Java was initially called "Oak."'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: true,
-        text: 'The first mobile application was created in 1997.'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: true,
-        text: "The concept of mobile apps gained significant popularity with the launch of Apple's App Store in 2008."
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: true,
-        text: 'Mobile computing enables users to access information and services on the go through their portable devices.'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: true,
-        text: 'Mobile operating systems like Android and iOS allow users to multitask and run multiple apps simultaneously.'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: true,
-        text: 'Mobile computing has transformed various industries, such as e-commerce, social media, and mobile gaming'
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: false,
-        text: ' Mobile phones were first introduced to the market in the 1970s.'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: false,
-        text: ' All mobile applications are developed using the Java programming language'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: false,
-        text: ' The acronym "iOS" stands for "Internet Operating System."'
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: false,
-        text: ' 5G is the earliest generation of mobile network technology.'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: false,
-        text: 'Mobile computing does not involve wearable devices like smartwatches.'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: true,
-        text: 'Mobile devices use a variety of sensors, such as accelerometers and gyroscopes, to enable features like screen rotation and motion detection.'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: true,
-        text: 'Mobile payment systems, such as Apple Pay and Google Pay, have gained popularity for making secure transactions using smartphones.'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: true,
-        text: 'Mobile computing has enabled the rise of location-based services and navigation applications.'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: true,
-        text: ' Mobile cloud computing allows users to store and access their data and applications from remote servers via the internet.'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: true,
-        text: 'Mobile computing has revolutionized communication by providing instant messaging, video calling, and social networking platforms on portable devices.'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: false,
-        text: 'Wi-Fi connectivity is not available on mobile devices.'
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: false,
-        text: 'Mobile computing is limited to smartphones and excludes tablets.'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: false,
-        text: 'Mobile applications cannot integrate augmented reality or virtual reality technologies.'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: false,
-        text: 'Mobile computing became popular in the 1990s with the introduction of PalmPilot devices.'
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: false,
-        text: 'The concept of mobile computing originated solely from advancements in cellular technology.'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: true,
-        text: 'Mobile computing is the ability to do computing operations while on the move.'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: true,
-        text: ' The first commercially available mobile phone, the Motorola DynaTAC 8000X, was released in 1983'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: false,
-        text: 'The first smartphone was released by Apple and was called the iPhone 2G'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: true,
-        text: 'Android is an open-source operating system for mobile devices developed by Google'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: true,
-        text: 'The acronym "iOS" stands for "iPhone Operating System" '
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: false,
-        text: 'Mobile computing refers only to smartphones and tablets, excluding other portable devices like smartwatches'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: false,
-        text: 'Mobile devices are incapable of using Wi-Fi for internet connectivity'
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: false,
-        text: 'The concept of mobile computing originated in the early 2000s'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: true,
-        text: 'Augmented reality (AR) and virtual reality (VR) technologies are commonly integrated into mobile applications'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: true,
-        text: 'The Python programming language was named after the British comedy group Monty Python'
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: false,
-        text: 'The Internet was created in the 1990s'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: true,
-        text: 'The concept of object-oriented programming (OOP) was first introduced in the language Smalltalk'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: false,
-        text: 'The first computer virus was developed in the 1980s and was called "Brain."'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: true,
-        text: 'The concept of the World Wide Web (WWW) was proposed by Tim Berners-Lee in 1989'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: true,
-        text: 'The first general-purpose electronic computer, ENIAC, was completed in 1945'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: true,
-        text: ' The programming language Java was initially called "Oak."'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: true,
-        text: 'The first mobile application was created in 1997.'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: true,
-        text: "The concept of mobile apps gained significant popularity with the launch of Apple's App Store in 2008."
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: true,
-        text: 'Mobile computing enables users to access information and services on the go through their portable devices.'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: true,
-        text: 'Mobile operating systems like Android and iOS allow users to multitask and run multiple apps simultaneously.'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: true,
-        text: 'Mobile computing has transformed various industries, such as e-commerce, social media, and mobile gaming'
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: false,
-        text: ' Mobile phones were first introduced to the market in the 1970s.'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: false,
-        text: ' All mobile applications are developed using the Java programming language'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: false,
-        text: ' The acronym "iOS" stands for "Internet Operating System."'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: false,
-        text: ' 5G is the earliest generation of mobile network technology.'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: false,
-        text: 'Mobile computing does not involve wearable devices like smartwatches.'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: true,
-        text: 'Mobile devices use a variety of sensors, such as accelerometers and gyroscopes, to enable features like screen rotation and motion detection.'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: true,
-        text: 'Mobile payment systems, such as Apple Pay and Google Pay, have gained popularity for making secure transactions using smartphones.'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: true,
-        text: 'Mobile computing has enabled the rise of location-based services and navigation applications.'
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: true,
-        text: ' Mobile cloud computing allows users to store and access their data and applications from remote servers via the internet.'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: true,
-        text: 'Mobile computing has revolutionized communication by providing instant messaging, video calling, and social networking platforms on portable devices.'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: false,
-        text: 'Wi-Fi connectivity is not available on mobile devices.'
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: false,
-        text: 'Mobile computing is limited to smartphones and excludes tablets.'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: false,
-        text: 'Mobile applications cannot integrate augmented reality or virtual reality technologies.'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: false,
-        text: 'Mobile computing became popular in the 1990s with the introduction of PalmPilot devices.'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: false,
-        text: 'The concept of mobile computing originated solely from advancements in cellular technology.'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: true,
-        text: 'Mobile computing is the ability to do computing operations while on the move.'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: true,
-        text: ' The first commercially available mobile phone, the Motorola DynaTAC 8000X, was released in 1983'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: false,
-        text: 'The first smartphone was released by Apple and was called the iPhone 2G'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: true,
-        text: 'Android is an open-source operating system for mobile devices developed by Google'
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: true,
-        text: 'The acronym "iOS" stands for "iPhone Operating System" '
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: false,
-        text: 'Mobile computing refers only to smartphones and tablets, excluding other portable devices like smartwatches'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: false,
-        text: 'Mobile devices are incapable of using Wi-Fi for internet connectivity'
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: false,
-        text: 'The concept of mobile computing originated in the early 2000s'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: true,
-        text: 'Augmented reality (AR) and virtual reality (VR) technologies are commonly integrated into mobile applications'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: true,
-        text: 'The Python programming language was named after the British comedy group Monty Python'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: false,
-        text: 'The Internet was created in the 1990s'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: true,
-        text: 'The concept of object-oriented programming (OOP) was first introduced in the language Smalltalk'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: false,
-        text: 'The first computer virus was developed in the 1980s and was called "Brain."'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: true,
-        text: 'The concept of the World Wide Web (WWW) was proposed by Tim Berners-Lee in 1989'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: true,
-        text: 'The first general-purpose electronic computer, ENIAC, was completed in 1945'
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: true,
-        text: ' The programming language Java was initially called "Oak."'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: true,
-        text: 'The first mobile application was created in 1997.'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: true,
-        text: "The concept of mobile apps gained significant popularity with the launch of Apple's App Store in 2008."
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: true,
-        text: 'Mobile computing enables users to access information and services on the go through their portable devices.'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: true,
-        text: 'Mobile operating systems like Android and iOS allow users to multitask and run multiple apps simultaneously.'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: true,
-        text: 'Mobile computing has transformed various industries, such as e-commerce, social media, and mobile gaming'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: false,
-        text: ' Mobile phones were first introduced to the market in the 1970s.'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: false,
-        text: ' All mobile applications are developed using the Java programming language'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: false,
-        text: ' The acronym "iOS" stands for "Internet Operating System."'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: false,
-        text: ' 5G is the earliest generation of mobile network technology.'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
     },
     {
-        value: false,
-        text: 'Mobile computing does not involve wearable devices like smartwatches.'
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
     },
     {
-        value: true,
-        text: 'Mobile devices use a variety of sensors, such as accelerometers and gyroscopes, to enable features like screen rotation and motion detection.'
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
     },
     {
-        value: true,
-        text: 'Mobile payment systems, such as Apple Pay and Google Pay, have gained popularity for making secure transactions using smartphones.'
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
     },
     {
-        value: true,
-        text: 'Mobile computing has enabled the rise of location-based services and navigation applications.'
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
     {
-        value: true,
-        text: ' Mobile cloud computing allows users to store and access their data and applications from remote servers via the internet.'
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
     },
     {
-        value: true,
-        text: 'Mobile computing has revolutionized communication by providing instant messaging, video calling, and social networking platforms on portable devices.'
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
     },
     {
-        value: false,
-        text: 'Wi-Fi connectivity is not available on mobile devices.'
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
     },
     {
-        value: false,
-        text: 'Mobile computing is limited to smartphones and excludes tablets.'
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
     },
     {
-        value: false,
-        text: 'Mobile applications cannot integrate augmented reality or virtual reality technologies.'
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
     },
     {
-        value: false,
-        text: 'Mobile computing became popular in the 1990s with the introduction of PalmPilot devices.'
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
     },
     {
-        value: false,
-        text: 'The concept of mobile computing originated solely from advancements in cellular technology.'
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
+    },
+    {
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
+    },
+    {
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
+    },
+    {
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
+    },
+    {
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
+    },
+    {
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
+    },
+    {
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
+    },
+    {
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
+    },
+    {
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
+    },
+    {
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
+    },
+    {
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
+    },
+    {
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
+    },
+    {
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
+    },
+    {
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
+    },
+    {
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
+    },
+    {
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
+    },
+    {
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
+    },
+    {
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
+    },
+    {
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
+    },
+    {
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
+    },
+    {
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
+    },
+    {
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
+    },
+    {
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
+    },
+    {
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
+    },
+    {
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
+    },
+    {
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
+    },
+    {
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
+    },
+    {
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
+    },
+    {
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
+    },
+    {
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
+    },
+    {
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
+    },
+    {
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
+    },
+    {
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
+    },
+    {
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
+    },
+    {
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
+    },
+    {
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
+    },
+    {
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
+    },
+    {
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
+    },
+    {
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
+    },
+    {
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
+    },
+    {
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
+    },
+    {
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
+    },
+    {
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
+    },
+    {
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
+    },
+    {
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
+    },
+    {
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
+    },
+    {
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
+    },
+    {
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
+    },
+    {
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
+    },
+    {
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
+    },
+    {
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
+    },
+    {
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
+    },
+    {
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
+    },
+    {
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
+    },
+    {
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
+    },
+    {
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
+    },
+    {
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
+    },
+    {
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
+    },
+    {
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
+    },
+    {
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
+    },
+    {
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
+    },
+    {
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
+    },
+    {
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
+    },
+    {
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
+    },
+    {
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
+    },
+    {
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
+    },
+    {
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
+    },
+    {
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
+    },
+    {
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
+    },
+    {
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
+    },
+    {
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
+    },
+    {
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
+    },
+    {
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
+    },
+    {
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
+    },
+    {
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
+    },
+    {
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
+    },
+    {
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
+    },
+    {
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
+    },
+    {
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
+    },
+    {
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
+    },
+    {
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
+    },
+    {
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
+    },
+    {
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
+    },
+    {
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
+    },
+    {
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
+    },
+    {
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
+    },
+    {
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
+    },
+    {
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
+    },
+    {
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
+    },
+    {
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
+    },
+    {
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
+    },
+    {
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
+    },
+    {
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
+    },
+    {
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
+    },
+    {
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
+    },
+    {
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
+    },
+    {
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
+    },
+    {
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
+    },
+    {
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
+    },
+    {
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
+    },
+    {
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
+    },
+    {
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
+    },
+    {
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
+    },
+    {
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
+    },
+    {
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
+    },
+    {
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
+    },
+    {
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
+    },
+    {
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
+    },
+    {
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
+    },
+    {
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
+    },
+    {
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
+    },
+    {
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
+    },
+    {
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
+    },
+    {
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
+    },
+    {
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
+    },
+    {
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
+    },
+    {
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
+    },
+    {
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
+    },
+    {
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
+    },
+    {
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
+    },
+    {
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
+    },
+    {
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
+    },
+    {
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
+    },
+    {
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
+    },
+    {
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
+    },
+    {
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
+    },
+    {
+        text: 'All that glitters is not gold',
+        Meaning: 'Something might not be as valuable as it seems to be',
+        Example: 'Radhika bought an attractive bracelet recently, but it broke in less than a week. All that glitters is not gold.'
+    },
+    {
+        text: 'A picture is worth a thousand words',
+        Meaning: 'Explaining something is easier through a picture than by words',
+        Example: "It’s easier to learn from pictures than only text, since a picture is worth a thousand words."
+    },
+    {
+        text: 'All good things come to an end',
+        Meaning: 'Nothing great lasts forever',
+        Example: 'It was a fantastic vacation, but all good things come to an end.'
+    },
+    {
+        text: 'Beggars can’t be choosers',
+        Meaning: 'People dependent on others must be content with what is offered to them',
+        Example: "People who depend on the generosity of others can’t pick & choose things as per their liking. They’ve to accept what is given to them."
+    },
+    {
+        text: 'A journey of a thousand miles begins with a single step',
+        Meaning: 'It is necessary to take the first step to reach your goal',
+        Example: "I feel overwhelmed with all the tasks I have to finish, but I have to start with something since a journey of a thousand miles begins with a single step."
+    },
+    {
+        text: 'A bird in the hand is worth two in the bush',
+        Meaning: 'What you have is better than what you might get',
+        Example: "I think I’ll sell my car at the offered price instead of waiting for something higher. After all, a bird in hand is worth two in the bush."
+    },
+    {
+        text: 'Actions speak louder than words',
+        Meaning: "What someone does means more than what they say they will do",
+        Example: 'She never bragged about her grades but secured the second position in the board exams. Truly, actions speak louder than words.'
+    },
+    {
+        text: 'Better safe than sorry',
+        Meaning: 'It is better to take precautions than to regret later',
+        Example: "Don’t ride your bike without wearing a helmet. It is better to be safe than sorry."
+    },
+    {
+        text: 'Appearances can be deceptive',
+        Meaning: 'Something might be different from how they appear outwardly',
+        Example: "Don’t trust people you are not familiar with; appearances can be deceptive."
+    },
+    {
+        text: 'As you sow, so you shall reap',
+        Meaning: 'Your actions determine your results',
+        Example: "If you don’t go to sleep early, you will wake up late. As you sow, so shall you reap."
+    },
+    {
+        text: 'Better late than never',
+        Meaning: 'Getting something late is better than never getting it',
+        Example: "we have been waiting for you for 3 hours, but okay, it’s better late than never."
     },
   ]
-
-  const text = [
-    {
-        text: 'You are correct!'
-    },
-    {
-        text: 'You are wrong :('
-    }
-  ]
-
-  const handleTrueButtonPress = () => {
-    if (facts[num].value === true) {
-      setAnswer(text[0].text);
-    } else {
-      setAnswer(text[1].text);
-    }
-
-    setTimeout(() => {
-      setAnswer('');
-    }, 3000);
-  };
-
-  const handleFalseButtonPress = () => {
-    if (facts[num].value === false) {
-      setAnswer(text[0].text);
-    } else {
-      setAnswer(text[1].text);
-    }
-
-    setTimeout(() => {
-      setAnswer('');
-    }, 3000);
-  };
-  
   
   return (
     <View style={styles.container} >
-      <View style={styles.factBlock}>
-        <View style={styles.factsContainer}> 
-            <Text style={styles.fact}>{facts[num]['text']}</Text>
+      <View style={styles.sayingBlock}>
+        <View style={styles.sayingsContainer}> 
+            <Text style={styles.saying}>{sayings[num]['text']}</Text>
+            <Text style={styles.text}> Meaning: {sayings[num]['Meaning']} </Text>
+            <Text style={styles.text}> Example: {sayings[num]['Example']} </Text>
         </View>
-        <Text style={styles.answer}> {answer}</Text>
       </View>
-
-
-      <view style={styles.buttonContainer}>
-        <TouchableOpcaity style={styles.buttonFalse} onPress={handleFalseButtonPress}>
-            <Text style={styles.buttonText}>False</Text>
+      <View style={styles.buttons}>
+        <TouchableOpcaity style={styles.button} onPress={() => {num == sayings.length ? setNum(0) : setNum(num - 1) }}>
+            <Text style={styles.buttonText}>Prev</Text>
         </TouchableOpcaity>
-        <TouchableOpcaity style={styles.buttonTrue} onPress={handleTrueButtonPress}>
-            <Text style={styles.buttonText}>True</Text>
+        <TouchableOpcaity style={styles.button} onPress={() => {num == sayings.length ? setNum(0) : setNum(num + 1) }}>
+            <Text style={styles.buttonText}>Next</Text>
         </TouchableOpcaity>
-      </view>
-      <TouchableOpcaity style={styles.button} onPress={() => {num == facts.length ? setNum(0) : setNum(num + 1) }}>
-        <Text style={styles.buttonText}>Next</Text>
-      </TouchableOpcaity>
+      </View>
     </View>
   )
 }
@@ -939,7 +1795,7 @@ export default Main
 const styles = StyleSheet.create({
   container: {
     flex:1,
-    backgroundColor: '#f5ebe0',
+    backgroundColor: '#f5f5f5',
     alignItems: 'center',
     justifyContent: 'space-evenly'
   },
@@ -948,10 +1804,7 @@ const styles = StyleSheet.create({
     height:195,
     marginBottom: 10
   },
-  factsContainer:{
-    borderRadius: 2,
-    borderWidth: 1,
-    borderStyle: 'dashed',
+  sayingsContainer:{
     // paddingVertical: 90,
     paddingHorizontal: 16,
     marginHorizontal: 10,
@@ -960,52 +1813,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     minHeight: 350,
   },
-  fact: {
-    color: '#000000', 
+  saying: {
+    color: '#353f32', 
     fontSize: 25,
-    fontFamily: 'Cavolini',
+    textDecorationLine: 'underline',
+    // change font family
+    fontFamily: 'sans-serif',
     fontWeight: 500,
     lineHeight: 34,
   },
+  text:{
+    fontSize: 20,
+    padding: 20,
+  },
   button: {
-    backgroundColor: '#f0a600',
+    backgroundColor: '#0a6a77',
     padding: 15,
     paddingHorizontal: 30,
     borderRadius: 5,
-    // marginTop: 100
+    marginHorizontal: 5
   },
   buttonText:{
     fontSize: 20,
     color: '#fff'
   },
-  buttonContainer:{
+  buttons:{
     display: 'flex',
-    gap: 10,
-  },
-  buttonFalse: {
-    backgroundColor: '#e63946',
-    padding: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-  },
-  buttonTrue: {
-    backgroundColor: '#38b000',
-    padding: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    // marginTop: 100
-  },
-  buttonText:{
-    fontSize: 20,
-    color: '#fff'
-  },
-  factBlock:{
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  answer:{
-    fontSize: 20,
-    fontWeight: 600
-  },
+    flexDirection: 'row'
+  }
 })
